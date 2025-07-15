@@ -56,9 +56,6 @@ export const Header: React.FC<HeaderProps> = ({ onSearch, searchQuery }) => {
               <span className="font-medium">Deliver to Ravi - {currentLocation}</span>
               <ChevronDown className="h-4 w-4 ml-1" />
             </button>
-            <div className="text-xs text-black/70">
-              Stores within 0.5 km radius
-            </div>
           </div>
 
           {/* Search bar */}
