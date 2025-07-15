@@ -84,7 +84,7 @@ export const LocalStores: React.FC<LocalStoresProps> = ({ onStoreSelect }) => {
         locations: ['560001', '560025', '560067']
       },
       {
-        id: 'ice-cream-parlour',
+        id: 'baskin-robbins',
         name: 'Baskin Robbins',
         rating: 4.5,
         logo: 'https://images.pexels.com/photos/1352278/pexels-photo-1352278.jpeg?auto=compress&cs=tinysrgb&w=300',

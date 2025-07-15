@@ -100,7 +100,37 @@ export const StoreProducts: React.FC<StoreProductsProps> = ({
           { id: 'karachi-3', name: 'Dilkush Biscuits', price: 150, weight: '300g', rating: 4.3, image: 'https://images.pexels.com/photos/1070850/pexels-photo-1070850.jpeg?auto=compress&cs=tinysrgb&w=200' },
           { id: 'karachi-4', name: 'Butter Cookies', price: 200, weight: '250g', rating: 4.4, image: 'https://images.pexels.com/photos/230325/pexels-photo-230325.jpeg?auto=compress&cs=tinysrgb&w=200' },
           { id: 'karachi-5', name: 'Chocolate Cookies', price: 220, weight: '250g', rating: 4.2, image: 'https://images.pexels.com/photos/230325/pexels-photo-230325.jpeg?auto=compress&cs=tinysrgb&w=200' },
-          { id: 'karachi-6', name: 'Coconut Cookies', price: 190, weight: '250g', rating: 4.1, image: 'https://images.pexels.com/photos/230325/pexels-photo-230325.jpeg?auto=compress&cs=tinysrgb&w=200' }
+        'spice-market': '14-18 mins',
+        'patanjali': '18-22 mins',
+        'baskin-robbins': '14-18 mins'
+        ]
+      },
+      'patanjali': {
+        name: 'Patanjali Store',
+        rating: 4.3,
+        category: 'Ayurvedic & Natural Products',
+        deliveryTime: '18 min',
+        products: [
+          { id: 'patanjali-1', name: 'Patanjali Aloe Vera Gel', price: 85, originalPrice: 120, weight: '150 ml', rating: 4.4, image: 'https://images.pexels.com/photos/4041392/pexels-photo-4041392.jpeg?auto=compress&cs=tinysrgb&w=200', discount: '29% OFF' },
+          { id: 'patanjali-2', name: 'Patanjali Honey', price: 180, originalPrice: 220, weight: '500g', rating: 4.6, image: 'https://images.pexels.com/photos/1435904/pexels-photo-1435904.jpeg?auto=compress&cs=tinysrgb&w=200', discount: '18% OFF' },
+          { id: 'patanjali-3', name: 'Patanjali Coconut Oil', price: 150, originalPrice: 180, weight: '500 ml', rating: 4.5, image: 'https://images.pexels.com/photos/33783/olive-oil-salad-dressing-cooking-olive.jpg?auto=compress&cs=tinysrgb&w=200', discount: '17% OFF' },
+          { id: 'patanjali-4', name: 'Patanjali Turmeric Powder', price: 45, originalPrice: 60, weight: '200g', rating: 4.3, image: 'https://images.pexels.com/photos/277253/pexels-photo-277253.jpeg?auto=compress&cs=tinysrgb&w=200', discount: '25% OFF' },
+          { id: 'patanjali-5', name: 'Patanjali Amla Juice', price: 120, originalPrice: 150, weight: '1 L', rating: 4.2, image: 'https://images.pexels.com/photos/1435904/pexels-photo-1435904.jpeg?auto=compress&cs=tinysrgb&w=200', discount: '20% OFF' },
+          { id: 'patanjali-6', name: 'Patanjali Ghee', price: 280, originalPrice: 320, weight: '500 ml', rating: 4.7, image: 'https://images.pexels.com/photos/1435904/pexels-photo-1435904.jpeg?auto=compress&cs=tinysrgb&w=200', discount: '13% OFF' }
+        ]
+      },
+      'baskin-robbins': {
+        name: 'Baskin Robbins',
+        rating: 4.5,
+        category: 'Ice Cream & Desserts',
+        deliveryTime: '14 min',
+        products: [
+          { id: 'baskin-1', name: 'Vanilla Ice Cream', price: 180, weight: '500 ml', rating: 4.6, image: 'https://images.pexels.com/photos/1352278/pexels-photo-1352278.jpeg?auto=compress&cs=tinysrgb&w=200' },
+          { id: 'baskin-2', name: 'Chocolate Fudge', price: 220, weight: '500 ml', rating: 4.7, image: 'https://images.pexels.com/photos/1352278/pexels-photo-1352278.jpeg?auto=compress&cs=tinysrgb&w=200' },
+          { id: 'baskin-3', name: 'Strawberry Delight', price: 200, weight: '500 ml', rating: 4.4, image: 'https://images.pexels.com/photos/1352278/pexels-photo-1352278.jpeg?auto=compress&cs=tinysrgb&w=200' },
+          { id: 'baskin-4', name: 'Cookies & Cream', price: 240, weight: '500 ml', rating: 4.8, image: 'https://images.pexels.com/photos/1352278/pexels-photo-1352278.jpeg?auto=compress&cs=tinysrgb&w=200' },
+          { id: 'baskin-5', name: 'Mango Tango', price: 210, weight: '500 ml', rating: 4.5, image: 'https://images.pexels.com/photos/1352278/pexels-photo-1352278.jpeg?auto=compress&cs=tinysrgb&w=200' },
+          { id: 'baskin-6', name: 'Mint Chocolate Chip', price: 230, weight: '500 ml', rating: 4.3, image: 'https://images.pexels.com/photos/1352278/pexels-photo-1352278.jpeg?auto=compress&cs=tinysrgb&w=200' }
         ]
       }
     };
@@ -131,14 +161,14 @@ export const StoreProducts: React.FC<StoreProductsProps> = ({
             <ArrowLeft className="h-6 w-6 text-gray-600" />
           </button>
           <div>
-            <h1 className="text-xl font-bold text-gray-900">QuickStore</h1>
-            <p className="text-sm text-gray-600">{store.name} • {store.category}</p>
+            <h1 className="text-xl font-bold text-gray-900">{store.name}</h1>
+            <p className="text-sm text-gray-600">{store.category}</p>
           </div>
         </div>
         <div className="bg-blue-50 px-3 py-2 rounded-lg">
           <div className="flex items-center justify-between">
             <p className="text-sm text-blue-800">
-              <span className="font-medium">{store.name}</span> • {store.category} • Delivery in {store.deliveryTime}
+              Delivery in {store.deliveryTime}
             </p>
             <div className="flex items-center space-x-1">
               <Star className="h-4 w-4 text-yellow-400 fill-current" />

@@ -180,7 +180,9 @@ function App() {
       'MedPlus': 'medplus',
       'Karachi Bakery': 'karachi-bakery',
       'Grocery Store': 'grocery-store',
-      'Spice Market': 'spice-market'
+      'Spice Market': 'spice-market',
+      'Patanjali Store': 'patanjali',
+      'Baskin Robbins': 'baskin-robbins'
     };
     return storeMap[storeName] || storeName.toLowerCase().replace(/\s+/g, '-');
   };

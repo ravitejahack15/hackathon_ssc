@@ -83,27 +83,94 @@ export const OrderTracking: React.FC<OrderTrackingProps> = ({
         {/* Delivery Map Placeholder */}
         <div className="bg-white rounded-lg p-4 border border-gray-200">
           <h3 className="font-bold text-gray-900 mb-3">Live Tracking</h3>
-          <div className="bg-blue-50 rounded-lg p-6 text-center">
-            <MapPin className="h-12 w-12 text-blue-600 mx-auto mb-2" />
-            <p className="text-blue-800 font-medium">Tracking your deliveries</p>
-            <p className="text-sm text-blue-600 mt-1">
-              {orderDetails.ecoFriendlyDelivery ? 
-                'Single delivery partner collecting from all stores' : 
-                'Multiple delivery partners en route'
-              }
-            </p>
-            <div className="mt-4 flex items-center justify-between text-xs text-blue-600">
-              <div className="flex items-center">
-                <div className="w-2 h-2 bg-green-500 rounded-full mr-1"></div>
-                Store Locations
+          <div className="bg-gray-100 rounded-lg overflow-hidden">
+            {/* Map Header */}
+            <div className="bg-blue-600 text-white p-3 flex items-center justify-between">
+              <div className="flex items-center space-x-2">
+                <MapPin className="h-5 w-5" />
+                <span className="font-medium">Live Map Tracking</span>
               </div>
-              <div className="flex items-center">
-                <div className="w-2 h-2 bg-blue-500 rounded-full mr-1"></div>
-                Delivery Route
+              <div className="text-sm">
+                {orderDetails.ecoFriendlyDelivery ? 'Eco Route' : 'Multiple Routes'}
               </div>
-              <div className="flex items-center">
-                <div className="w-2 h-2 bg-red-500 rounded-full mr-1"></div>
-                Your Location
+            </div>
+            
+            {/* Simulated Map View */}
+            <div className="relative h-64 bg-gradient-to-br from-green-100 to-blue-100">
+              {/* Map Grid Pattern */}
+              <div className="absolute inset-0 opacity-20">
+                <div className="grid grid-cols-8 grid-rows-8 h-full">
+                  {Array.from({ length: 64 }).map((_, i) => (
+                    <div key={i} className="border border-gray-300"></div>
+                  ))}
+                </div>
+              </div>
+              
+              {/* Store Locations */}
+              <div className="absolute top-4 left-6 w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+              <div className="absolute top-8 right-8 w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+              <div className="absolute bottom-12 left-12 w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+              
+              {/* Delivery Routes */}
+              <svg className="absolute inset-0 w-full h-full">
+                <path
+                  d="M 30 20 Q 100 50 200 40 Q 250 60 280 80"
+                  stroke="#3B82F6"
+                  strokeWidth="3"
+                  fill="none"
+                  strokeDasharray="5,5"
+                  className="animate-pulse"
+                />
+                <path
+                  d="M 320 40 Q 280 100 200 120 Q 150 140 100 160"
+                  stroke="#3B82F6"
+                  strokeWidth="3"
+                  fill="none"
+                  strokeDasharray="5,5"
+                  className="animate-pulse"
+                />
+              </svg>
+              
+              {/* Delivery Partners */}
+              <div className="absolute top-12 left-20 w-4 h-4 bg-blue-600 rounded-full flex items-center justify-center animate-bounce">
+                <Truck className="h-2 w-2 text-white" />
+              </div>
+              <div className="absolute bottom-20 right-16 w-4 h-4 bg-blue-600 rounded-full flex items-center justify-center animate-bounce">
+                <Truck className="h-2 w-2 text-white" />
+              </div>
+              
+              {/* Your Location */}
+              <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 w-4 h-4 bg-red-500 rounded-full animate-pulse flex items-center justify-center">
+                <div className="w-2 h-2 bg-white rounded-full"></div>
+              </div>
+              
+              {/* Location Labels */}
+              <div className="absolute top-1 left-4 text-xs bg-white px-1 rounded shadow">Store 1</div>
+              <div className="absolute top-5 right-4 text-xs bg-white px-1 rounded shadow">Store 2</div>
+              <div className="absolute bottom-8 left-8 text-xs bg-white px-1 rounded shadow">Store 3</div>
+              <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 text-xs bg-white px-1 rounded shadow">Your Location</div>
+            </div>
+            
+            {/* Map Legend */}
+            <div className="p-3 bg-white border-t">
+              <div className="flex items-center justify-between text-xs">
+                <div className="flex items-center space-x-4">
+                  <div className="flex items-center space-x-1">
+                    <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                    <span className="text-gray-600">Stores</span>
+                  </div>
+                  <div className="flex items-center space-x-1">
+                    <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
+                    <span className="text-gray-600">Delivery Partners</span>
+                  </div>
+                  <div className="flex items-center space-x-1">
+                    <div className="w-2 h-2 bg-red-500 rounded-full"></div>
+                    <span className="text-gray-600">Your Location</span>
+                  </div>
+                </div>
+                <div className="text-gray-500">
+                  Updated 30s ago
+                </div>
               </div>
             </div>
           </div>
