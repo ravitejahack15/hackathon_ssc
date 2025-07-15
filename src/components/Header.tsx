@@ -4,14 +4,12 @@ import { Search, X, MapPin, ChevronDown } from 'lucide-react';
 interface HeaderProps {
   onSearch: (query: string) => void;
   searchQuery: string;
-  currentLocation: string;
-  onLocationChange: (location: string) => void;
 }
 
-export const Header: React.FC<HeaderProps> = ({ onSearch, searchQuery, currentLocation, onLocationChange }) => {
+export const Header: React.FC<HeaderProps> = ({ onSearch, searchQuery }) => {
   const [localQuery, setLocalQuery] = useState(searchQuery);
+  const [currentLocation, setCurrentLocation] = useState('MG Road, Bengaluru 560001');
   const [showLocationModal, setShowLocationModal] = useState(false);
-  const [newLocation, setNewLocation] = useState(currentLocation);
 
   const locations = [
     { pincode: '560001', area: 'MG Road, Bengaluru', stores: 12 },
@@ -27,8 +25,7 @@ export const Header: React.FC<HeaderProps> = ({ onSearch, searchQuery, currentLo
   };
 
   const handleLocationChange = (location: string) => {
-    setNewLocation(location);
-    onLocationChange(location);
+    setCurrentLocation(location);
     setShowLocationModal(false);
   };
 

@@ -3,10 +3,10 @@ import { Clock, Star } from 'lucide-react';
 
 interface LocalStoresProps {
   onStoreSelect: (storeId: string) => void;
-  currentLocation: string;
 }
 
-export const LocalStores: React.FC<LocalStoresProps> = ({ onStoreSelect, currentLocation }) => {
+export const LocalStores: React.FC<LocalStoresProps> = ({ onStoreSelect }) => {
+  const currentLocation = 'MG Road, Bengaluru 560001';
   
   const getStoresForLocation = (location: string) => {
     const allStores = [
@@ -131,6 +131,9 @@ export const LocalStores: React.FC<LocalStoresProps> = ({ onStoreSelect, current
               <h4 className="text-sm font-semibold text-gray-900 text-center mb-1 group-hover:text-blue-600">
                 {store.name}
               </h4>
+              </div>
+              
+              <div className="flex items-center justify-between mb-2">
                 <div className="flex items-center space-x-1">
                   <Star className="h-3 w-3 text-yellow-400 fill-current" />
                   <span className="text-xs font-medium text-gray-700">{store.rating}</span>
