@@ -66,7 +66,7 @@ export const Header: React.FC<HeaderProps> = ({ onSearch, searchQuery }) => {
                 type="text"
                 value={localQuery}
                 onChange={(e) => setLocalQuery(e.target.value)}
-                placeholder="Search for \"Coffee\""
+                placeholder='Search for "Coffee"'
                 className="w-full pl-12 pr-4 py-3 bg-white rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 border border-gray-200 shadow-sm"
               />
             </div>
