@@ -262,6 +262,7 @@ function App() {
   return (
     <div className="min-h-screen bg-gray-50">
       <Header onSearch={handleSearch} searchQuery={searchQuery} />
+      <Header onSearch={handleSearch} searchQuery={searchQuery} onStoreSelect={handleStoreSelect} />
       
       {!searchQuery && !selectedCategory && !selectedStore && (
         <>

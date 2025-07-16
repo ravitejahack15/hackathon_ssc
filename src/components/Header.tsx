@@ -4,10 +4,13 @@ import { Search, X, MapPin, ChevronDown } from 'lucide-react';
 interface HeaderProps {
   onSearch: (query: string) => void;
   searchQuery: string;
+  onStoreSelect?: (storeId: string) => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({ onSearch, searchQuery }) => {
+export const Header: React.FC<HeaderProps> = ({ onSearch, searchQuery, onStoreSelect }) => {
   const [localQuery, setLocalQuery] = useState(searchQuery);
+  const [showSearchSuggestions, setShowSearchSuggestions] = useState(false);
   const [currentLocation, setCurrentLocation] = useState('MG Road, Bengaluru 560001');
   const [showLocationModal, setShowLocationModal] = useState(false);
 
@@ -19,9 +22,46 @@ export const Header: React.FC<HeaderProps> = ({ onSearch, searchQuery }) => {
     { pincode: '560100', area: 'Indiranagar, Bengaluru', stores: 18 },
   ];
 
+  const stores = [
+    { id: 'zara', name: 'Zara', category: 'Jewellery & Accessories' },
+    { id: 'zudio', name: 'Zudio', category: 'Fashion & Clothing' },
+    { id: 'mayuri-bakery', name: 'Mayuri Bakery', category: 'Bakery & Sweets' },
+    { id: 'nandini', name: 'Nandini Milk Parlour', category: 'Dairy Products' },
+    { id: 'medplus', name: 'MedPlus', category: 'Pharmacy & Health' },
+    { id: 'karachi-bakery', name: 'Karachi Bakery', category: 'Bakery & Biscuits' },
+    { id: 'patanjali', name: 'Patanjali Store', category: 'Ayurvedic & Natural' },
+    { id: 'baskin-robbins', name: 'Baskin Robbins', category: 'Ice Cream & Desserts' }
+  ];
+
+  const filteredStores = stores.filter(store => 
+    store.name.toLowerCase().includes(localQuery.toLowerCase()) ||
+    store.category.toLowerCase().includes(localQuery.toLowerCase())
+  );
+
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
+    setShowSearchSuggestions(false);
     onSearch(localQuery);
+  };
+
+  const handleStoreSelect = (storeId: string, storeName: string) => {
+    setLocalQuery(storeName);
+    setShowSearchSuggestions(false);
+    if (onStoreSelect) {
+      onStoreSelect(storeId);
+    }
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setLocalQuery(value);
+    setShowSearchSuggestions(value.length > 0 && filteredStores.length > 0);
+  };
+
+  const handleInputFocus = () => {
+    if (localQuery.length > 0 && filteredStores.length > 0) {
+      setShowSearchSuggestions(true);
+    }
   };
 
   const handleLocationChange = (location: string) => {
@@ -65,11 +105,38 @@ export const Header: React.FC<HeaderProps> = ({ onSearch, searchQuery }) => {
               <input
                 type="text"
                 value={localQuery}
-                onChange={(e) => setLocalQuery(e.target.value)}
+                onChange={handleInputChange}
+                onFocus={handleInputFocus}
+                onBlur={() => setTimeout(() => setShowSearchSuggestions(false), 200)}
                 placeholder='Search for "Coffee"'
                 className="w-full pl-12 pr-4 py-3 bg-white rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 border border-gray-200 shadow-sm"
               />
             </div>
+            
+            {/* Search Suggestions */}
+            {showSearchSuggestions && filteredStores.length > 0 && (
+              <div className="absolute top-full left-0 right-0 bg-white border border-gray-200 rounded-lg mt-1 shadow-lg z-50 max-h-60 overflow-y-auto">
+                <div className="p-2">
+                  <div className="text-xs text-gray-500 mb-2 px-2">STORES</div>
+                  {filteredStores.slice(0, 6).map((store) => (
+                    <button
+                      key={store.id}
+                      type="button"
+                      onClick={() => handleStoreSelect(store.id, store.name)}
+                      className="w-full text-left p-2 hover:bg-gray-50 rounded-md flex items-center space-x-3"
+                    >
+                      <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                        <span className="text-blue-600 text-sm">🏪</span>
+                      </div>
+                      <div>
+                        <div className="font-medium text-gray-900">{store.name}</div>
+                        <div className="text-sm text-gray-500">{store.category}</div>
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
           </form>
         </div>
       </header>
