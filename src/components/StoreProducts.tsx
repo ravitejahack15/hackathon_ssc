@@ -100,9 +100,6 @@ export const StoreProducts: React.FC<StoreProductsProps> = ({
           { id: 'karachi-3', name: 'Dilkush Biscuits', price: 150, weight: '300g', rating: 4.3, image: 'https://images.pexels.com/photos/1070850/pexels-photo-1070850.jpeg?auto=compress&cs=tinysrgb&w=200' },
           { id: 'karachi-4', name: 'Butter Cookies', price: 200, weight: '250g', rating: 4.4, image: 'https://images.pexels.com/photos/230325/pexels-photo-230325.jpeg?auto=compress&cs=tinysrgb&w=200' },
           { id: 'karachi-5', name: 'Chocolate Cookies', price: 220, weight: '250g', rating: 4.2, image: 'https://images.pexels.com/photos/230325/pexels-photo-230325.jpeg?auto=compress&cs=tinysrgb&w=200' },
-        'spice-market': '14-18 mins',
-        'patanjali': '18-22 mins',
-        'baskin-robbins': '14-18 mins'
         ]
       },
       'patanjali': {
