@@ -21,9 +21,46 @@ export const Header: React.FC<HeaderProps> = ({ onSearch, searchQuery, onStoreSe
     { pincode: '560100', area: 'Indiranagar, Bengaluru', stores: 18 },
   ];
 
+  const stores = [
+    { id: 'zara', name: 'Zara', category: 'Jewellery & Accessories' },
+    { id: 'zudio', name: 'Zudio', category: 'Fashion & Clothing' },
+    { id: 'mayuri-bakery', name: 'Mayuri Bakery', category: 'Bakery & Sweets' },
+    { id: 'nandini', name: 'Nandini Milk Parlour', category: 'Dairy Products' },
+    { id: 'medplus', name: 'MedPlus', category: 'Pharmacy & Health' },
+    { id: 'karachi-bakery', name: 'Karachi Bakery', category: 'Bakery & Biscuits' },
+    { id: 'patanjali', name: 'Patanjali Store', category: 'Ayurvedic & Natural' },
+    { id: 'baskin-robbins', name: 'Baskin Robbins', category: 'Ice Cream & Desserts' }
+  ];
+
+  const filteredStores = stores.filter(store => 
+    store.name.toLowerCase().includes(localQuery.toLowerCase()) ||
+    store.category.toLowerCase().includes(localQuery.toLowerCase())
+  );
+
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
+    setShowSearchSuggestions(false);
     onSearch(localQuery);
+  };
+
+  const handleStoreSelect = (storeId: string, storeName: string) => {
+    setLocalQuery(storeName);
+    setShowSearchSuggestions(false);
+    if (onStoreSelect) {
+      onStoreSelect(storeId);
+    }
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setLocalQuery(value);
+    setShowSearchSuggestions(value.length > 0 && filteredStores.length > 0);
+  };
+
+  const handleInputFocus = () => {
+    if (localQuery.length > 0 && filteredStores.length > 0) {
+      setShowSearchSuggestions(true);
+    }
   };
 
   const handleLocationChange = (location: string) => {
@@ -67,7 +104,8 @@ export const Header: React.FC<HeaderProps> = ({ onSearch, searchQuery, onStoreSe
               <input
                 type="text"
                 value={localQuery}
-                onChange={(e) => setLocalQuery(e.target.value)}
+                onChange={handleInputChange}
+                onFocus={handleInputFocus}
                 placeholder='Search for "Coffee"'
                 className="w-full pl-12 pr-4 py-3 bg-white rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 border border-gray-200 shadow-sm"
               />
