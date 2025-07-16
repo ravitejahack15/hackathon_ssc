@@ -72,15 +72,13 @@ export const Header: React.FC<HeaderProps> = ({ onSearch, searchQuery, onStoreSe
     <>
       <header className="bg-gradient-to-b from-sky-200 to-sky-100 sticky top-0 z-50">
         <div className="px-4 py-4">
-          {/* Amazon Now Logo */}
-          <div className="flex items-center justify-center mb-4">
-            <h1 className="text-2xl font-bold text-gray-900">
-              amazon <span className="text-blue-600 font-normal italic">now</span>
-            </h1>
-          </div>
-
           {/* Delivery info and location */}
           <div className="flex items-center justify-between mb-4">
+            {/* Amazon Now Logo */}
+            <h1 className="text-xl font-bold text-gray-900">
+              amazon <span className="text-blue-600 font-normal italic">now</span>
+            </h1>
+            
             <div className="bg-yellow-400 text-black px-3 py-1.5 rounded-md font-bold text-sm flex items-center">
               ⚡ 12 mins
             </div>

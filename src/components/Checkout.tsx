@@ -102,7 +102,7 @@ export const Checkout: React.FC<CheckoutProps> = ({
               <div>
                 <h3 className="font-bold text-green-800">Eco-Friendly Delivery</h3>
                 <p className="text-sm text-green-600">
-                  Single delivery partner picks up from all stores ({getEcoDeliveryTime()})
+                  One delivery partner collects from all stores • {getEcoDeliveryTime()}
                 </p>
               </div>
             </div>
@@ -119,36 +119,83 @@ export const Checkout: React.FC<CheckoutProps> = ({
         </div>
 
         {/* Active Orders */}
-        <div className="bg-white rounded-lg p-4 border border-gray-200">
-          <h3 className="font-bold text-gray-900 mb-4">Your Orders</h3>
-          <div className="space-y-4">
-            {sellerCarts.map((cart) => (
-              <div key={cart.sellerId} className="border border-gray-200 rounded-lg p-3">
-                <div className="flex items-center justify-between mb-2">
-                  <div className="flex items-center space-x-2">
-                    <Package className="h-5 w-5 text-blue-600" />
-                    <h4 className="font-medium text-gray-900">{cart.sellerName}</h4>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <Clock className="h-4 w-4 text-green-600" />
-                    <span className="text-sm text-green-600 font-medium">
-                      {ecoFriendlyDelivery ? getEcoDeliveryTime() : cart.deliveryTime}
-                    </span>
-                  </div>
-                </div>
-                <div className="text-sm text-gray-600 mb-2">
-                  {cart.items.length} items • ₹{cart.items.reduce((total, item) => total + (item.price * item.quantity), 0)}
-                </div>
-                <button
-                  onClick={() => onToggleWaitlist(cart.sellerId)}
-                  className="text-blue-600 text-sm hover:underline"
-                >
-                  Move to Waitlist
-                </button>
+        {ecoFriendlyDelivery ? (
+          /* Eco-Friendly Single Delivery View */
+          <div className="bg-white rounded-lg p-4 border border-gray-200">
+            <div className="flex items-center space-x-3 mb-4">
+              <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                <Leaf className="h-5 w-5 text-green-600" />
               </div>
-            ))}
+              <div>
+                <h3 className="font-bold text-gray-900">Eco-Friendly Delivery</h3>
+                <p className="text-sm text-green-600">One driver collecting from {sellerCarts.length} stores</p>
+              </div>
+              <div className="ml-auto flex items-center space-x-2">
+                <Clock className="h-4 w-4 text-green-600" />
+                <span className="text-sm text-green-600 font-medium">{getEcoDeliveryTime()}</span>
+              </div>
+            </div>
+            
+            <div className="space-y-3">
+              {sellerCarts.map((cart, index) => (
+                <div key={cart.sellerId} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                  <div className="flex items-center space-x-3">
+                    <div className="w-6 h-6 bg-green-500 text-white rounded-full flex items-center justify-center text-xs font-bold">
+                      {index + 1}
+                    </div>
+                    <div>
+                      <h4 className="font-medium text-gray-900">{cart.sellerName}</h4>
+                      <p className="text-sm text-gray-600">{cart.items.length} items • ₹{cart.items.reduce((total, item) => total + (item.price * item.quantity), 0)}</p>
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => onToggleWaitlist(cart.sellerId)}
+                    className="text-blue-600 text-sm hover:underline"
+                  >
+                    Move to Waitlist
+                  </button>
+                </div>
+              ))}
+            </div>
+            
+            <div className="mt-4 p-3 bg-green-50 rounded-lg">
+              <div className="flex items-center space-x-2 text-sm text-green-700">
+                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                <span>Driver will collect items in sequence and deliver together</span>
+              </div>
+            </div>
           </div>
-        </div>
+        ) : (
+          /* Regular Multi-Delivery View */
+          <div className="bg-white rounded-lg p-4 border border-gray-200">
+            <h3 className="font-bold text-gray-900 mb-4">Your Orders</h3>
+            <div className="space-y-4">
+              {sellerCarts.map((cart) => (
+                <div key={cart.sellerId} className="border border-gray-200 rounded-lg p-3">
+                  <div className="flex items-center justify-between mb-2">
+                    <div className="flex items-center space-x-2">
+                      <Package className="h-5 w-5 text-blue-600" />
+                      <h4 className="font-medium text-gray-900">{cart.sellerName}</h4>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <Clock className="h-4 w-4 text-green-600" />
+                      <span className="text-sm text-green-600 font-medium">{cart.deliveryTime}</span>
+                    </div>
+                  </div>
+                  <div className="text-sm text-gray-600 mb-2">
+                    {cart.items.length} items • ₹{cart.items.reduce((total, item) => total + (item.price * item.quantity), 0)}
+                  </div>
+                  <button
+                    onClick={() => onToggleWaitlist(cart.sellerId)}
+                    className="text-blue-600 text-sm hover:underline"
+                  >
+                    Move to Waitlist
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* Waitlisted Items */}
         {waitlistedCarts.length > 0 && (
