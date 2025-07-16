@@ -106,10 +106,36 @@ export const Header: React.FC<HeaderProps> = ({ onSearch, searchQuery, onStoreSe
                 value={localQuery}
                 onChange={handleInputChange}
                 onFocus={handleInputFocus}
+                onBlur={() => setTimeout(() => setShowSearchSuggestions(false), 200)}
                 placeholder='Search for "Coffee"'
                 className="w-full pl-12 pr-4 py-3 bg-white rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 border border-gray-200 shadow-sm"
               />
             </div>
+            
+            {/* Search Suggestions */}
+            {showSearchSuggestions && filteredStores.length > 0 && (
+              <div className="absolute top-full left-0 right-0 bg-white border border-gray-200 rounded-lg mt-1 shadow-lg z-50 max-h-60 overflow-y-auto">
+                <div className="p-2">
+                  <div className="text-xs text-gray-500 mb-2 px-2">STORES</div>
+                  {filteredStores.slice(0, 6).map((store) => (
+                    <button
+                      key={store.id}
+                      type="button"
+                      onClick={() => handleStoreSelect(store.id, store.name)}
+                      className="w-full text-left p-2 hover:bg-gray-50 rounded-md flex items-center space-x-3"
+                    >
+                      <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                        <span className="text-blue-600 text-sm">🏪</span>
+                      </div>
+                      <div>
+                        <div className="font-medium text-gray-900">{store.name}</div>
+                        <div className="text-sm text-gray-500">{store.category}</div>
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
           </form>
         </div>
       </header>
